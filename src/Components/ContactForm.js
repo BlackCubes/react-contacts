@@ -3,13 +3,13 @@ import React from 'react';
 class ContactForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state({
+    this.state = {
       firstName: '',
       lastName: '',
       phoneNumber: '',
       email: '',
       address: '',
-    });
+    };
   }
 
   render() {
