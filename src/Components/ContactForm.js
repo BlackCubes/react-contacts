@@ -81,7 +81,14 @@ class ContactForm extends React.Component {
   }
 
   render() {
-    const { firstName, lastName, phoneNumber, email, address } = this.state;
+    const {
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      address,
+      errors,
+    } = this.state;
 
     return (
       <form className="form" onSubmit={this.handleSubmit} noValidate>
@@ -98,7 +105,11 @@ class ContactForm extends React.Component {
               noValidate
             />
 
-            <span className="form__label label-text">Enter a first name.</span>
+            <span className="form__label label-text">
+              {errors.firstName.length > 0
+                ? errors.firstName
+                : 'Enter a first name.'}
+            </span>
           </label>
         </div>
 
@@ -115,7 +126,11 @@ class ContactForm extends React.Component {
               noValidate
             />
 
-            <span className="form__label label-text">Enter a last name.</span>
+            <span className="form__label label-text">
+              {errors.lastName.length > 0
+                ? errors.lastName
+                : 'Enter a last name.'}
+            </span>
           </label>
         </div>
 
@@ -133,7 +148,9 @@ class ContactForm extends React.Component {
             />
 
             <span className="form__label label-text">
-              Enter a phone number.
+              {errors.phoneNumber.length > 0
+                ? errors.phoneNumber
+                : 'Enter a phone number.'}
             </span>
           </label>
         </div>
@@ -151,7 +168,9 @@ class ContactForm extends React.Component {
               noValidate
             />
 
-            <span className="form__label label-text">Enter an email.</span>
+            <span className="form__label label-text">
+              {errors.email.length > 0 ? errors.email : 'Enter an email.'}
+            </span>
           </label>
         </div>
 
@@ -168,7 +187,9 @@ class ContactForm extends React.Component {
               noValidate
             />
 
-            <span className="form__label label-text">Enter an address.</span>
+            <span className="form__label label-text">
+              {errors.address.length > 0 ? errors.address : 'Enter an address.'}
+            </span>
           </label>
         </div>
 
