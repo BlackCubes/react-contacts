@@ -36,42 +36,41 @@ class ContactForm extends React.Component {
 
     switch (name) {
       case 'firstName':
-        errors.firstName =
-          value.length < 2 ? 'Must be a minimum of 2 characters.' : '';
-        errors.firstName =
-          value.length > 20
-            ? 'Must be less than or equal to 20 characters.'
-            : '';
-        errors.firstName = !regex.regexName.test(value)
-          ? 'Please use a valid first name'
-          : '';
+        if (value.length < 2)
+          errors.firstName = 'Must be a minimum of 2 characters.';
+        else if (value.length > 20)
+          errors.firstName = 'Must be less than or equal to 20 characters.';
+        else if (!regex.regexName.test(value))
+          errors.firstName = 'Please use a valid first name';
+        else errors.firstName = 'Woohoo!';
         break;
       case 'lastName':
-        errors.lastName =
-          value.length < 2 ? 'Must be a minimum of 2 characters.' : '';
-        errors.lastName =
-          value.length > 40
-            ? 'Must be less than or equal to 40 characters.'
-            : '';
-        errors.lastName = !regex.regexName.test(value)
-          ? 'Please use a valid last name'
-          : '';
+        if (value.length < 2)
+          errors.lastName = 'Must be a minimum of 2 characters.';
+        else if (value.length > 40)
+          errors.lastName = 'Must be less than or equal to 40 characters.';
+        else if (!regex.regexName.test(value))
+          errors.lastName = 'Please use a valid last name';
+        else errors.lastName = 'Woohoo!';
         break;
       case 'phoneNumber':
-        errors.phoneNumber = !regex.regexPhone.test(value)
-          ? 'Please provide a valid phone number.'
-          : '';
+        if (!regex.regexPhone.test(value))
+          errors.phoneNumber = 'Please provide a valid phone number.';
+        else errors.phoneNumber = 'Woohoo!';
+        break;
+      case 'email':
+        if (!regex.regexEmail.test(value))
+          errors.email = 'Please provide a valid email.';
+        else errors.email = 'Woohoo!';
         break;
       case 'address':
-        errors.address =
-          value.length < 3 ? 'Must be a minimum of 3 characters.' : '';
-        errors.address =
-          value.length < 96
-            ? 'Must be less than or equal to 96 character.'
-            : '';
-        errors.address = !regex.regexAddress.test(value)
-          ? 'Please provide a valid address.'
-          : '';
+        if (value.length < 3)
+          errors.address = 'Must be a minimum of 3 characters.';
+        else if (value.length > 96)
+          errors.address = 'Must be less than or equal to 96 character.';
+        else if (!regex.regexAddress.test(value))
+          errors.address = 'Please provide a valid address.';
+        else errors.address = 'Woohoo!';
         break;
       default:
         break;
