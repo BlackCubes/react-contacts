@@ -38,10 +38,36 @@ class ContactForm extends React.Component {
       case 'firstName':
         errors.firstName =
           value.length < 2 ? 'Must be a minimum of 2 characters.' : '';
-        errors.lastName = value.length > errors.firstName = !regex.name.test(
-          value
-        )
-          ? 'Must be a valid first name.'
+        errors.firstName =
+          value.length > 20
+            ? 'Must be less than or equal to 20 characters.'
+            : '';
+        errors.firstName = !regex.regexName.test(value)
+          ? 'Please use a valid first name'
+          : '';
+      case 'lastName':
+        errors.lastName =
+          value.length < 2 ? 'Must be a minimum of 2 characters.' : '';
+        errors.lastName =
+          value.length > 40
+            ? 'Must be less than or equal to 40 characters.'
+            : '';
+        errors.lastName = !regex.regexName.test(value)
+          ? 'Please use a valid last name'
+          : '';
+      case 'phoneNumber':
+        errors.phoneNumber = !regex.regexPhone.test(value)
+          ? 'Please provide a valid phone number.'
+          : '';
+      case 'address':
+        errors.address =
+          value.length < 3 ? 'Must be a minimum of 3 characters.' : '';
+        errors.address =
+          value.length < 96
+            ? 'Must be less than or equal to 96 character.'
+            : '';
+        errors.address = !regex.regexAddress.test(value)
+          ? 'Please provide a valid address.'
           : '';
     }
 
