@@ -1,5 +1,7 @@
 import React from 'react';
 
+import * as regex from '../utils/regex';
+
 class ContactForm extends React.Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,41 @@ class ContactForm extends React.Component {
       phoneNumber: '',
       email: '',
       address: '',
+      errors: {
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        email: '',
+        address: '',
+      },
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault(e);
+    alert('Hello! :)');
+  }
+
+  handleChange(e) {
+    e.preventDefault();
+    const { name, value } = e.target;
+    const { errors } = this.state;
+
+    switch (name) {
+      case 'firstName':
+        errors.firstName =
+          value.length < 2 ? 'Must be a minimum of 2 characters.' : '';
+        errors.lastName = value.length > errors.firstName = !regex.name.test(
+          value
+        )
+          ? 'Must be a valid first name.'
+          : '';
+    }
+
+    this.setState({ [name]: value, errors });
   }
 
   render() {
