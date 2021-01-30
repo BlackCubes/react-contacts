@@ -45,6 +45,7 @@ class ContactForm extends React.Component {
         errors.firstName = !regex.regexName.test(value)
           ? 'Please use a valid first name'
           : '';
+        break;
       case 'lastName':
         errors.lastName =
           value.length < 2 ? 'Must be a minimum of 2 characters.' : '';
@@ -55,10 +56,12 @@ class ContactForm extends React.Component {
         errors.lastName = !regex.regexName.test(value)
           ? 'Please use a valid last name'
           : '';
+        break;
       case 'phoneNumber':
         errors.phoneNumber = !regex.regexPhone.test(value)
           ? 'Please provide a valid phone number.'
           : '';
+        break;
       case 'address':
         errors.address =
           value.length < 3 ? 'Must be a minimum of 3 characters.' : '';
@@ -69,6 +72,9 @@ class ContactForm extends React.Component {
         errors.address = !regex.regexAddress.test(value)
           ? 'Please provide a valid address.'
           : '';
+        break;
+      default:
+        break;
     }
 
     this.setState({ [name]: value, errors });
@@ -78,7 +84,7 @@ class ContactForm extends React.Component {
     const { firstName, lastName, phoneNumber, email, address } = this.state;
 
     return (
-      <form className="form" noValidate>
+      <form className="form" onSubmit={this.handleSubmit} noValidate>
         <div className="form__group">
           <label htmlFor="firstName">
             <input
@@ -88,6 +94,7 @@ class ContactForm extends React.Component {
               id="firstName"
               value={firstName}
               placeholder="First Name"
+              onChange={this.handleChange}
               noValidate
             />
 
@@ -104,6 +111,7 @@ class ContactForm extends React.Component {
               id="lastName"
               value={lastName}
               placeholder="Last Name"
+              onChange={this.handleChange}
               noValidate
             />
 
@@ -120,6 +128,7 @@ class ContactForm extends React.Component {
               id="phoneNumber"
               value={phoneNumber}
               placeholder="Phone Number"
+              onChange={this.handleChange}
               noValidate
             />
 
@@ -138,6 +147,7 @@ class ContactForm extends React.Component {
               id="email"
               value={email}
               placeholder="Email"
+              onChange={this.handleChange}
               noValidate
             />
 
@@ -154,6 +164,7 @@ class ContactForm extends React.Component {
               id="address"
               value={address}
               placeholder="Address"
+              onChange={this.handleChange}
               noValidate
             />
 
