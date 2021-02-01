@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as regex from '../utils/regex';
 
@@ -25,11 +26,23 @@ class ContactForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
+    this.validateForm = this.validateForm.bind(this);
   }
 
   handleSubmit(e) {
-    e.preventDefault(e);
-    alert('Hello! :)');
+    e.preventDefault();
+    const { onSubmit } = this.props;
+    const { errors, ...inputs } = this.state;
+
+    if (this.validateForm(errors)) onSubmit([inputs]);
+    this.setState({
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      email: '',
+      address: '',
+      fileUpload: null,
+    });
   }
 
   handleChange(e) {
@@ -108,6 +121,14 @@ class ContactForm extends React.Component {
         reader.onloadend = () => this.setState({ fileUpload: reader.result });
       }
     }
+  }
+
+  validateForm(errors) {
+    let valid = true;
+    Object.values(errors).forEach((err) => {
+      if (err.length) valid = false;
+    });
+    return valid;
   }
 
   render() {
@@ -257,5 +278,9 @@ class ContactForm extends React.Component {
     );
   }
 }
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default ContactForm;
