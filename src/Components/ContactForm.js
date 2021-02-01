@@ -11,6 +11,7 @@ class ContactForm extends React.Component {
       phoneNumber: '',
       email: '',
       address: '',
+      fileUpload: null,
       errors: {
         firstName: '',
         lastName: '',
@@ -22,6 +23,7 @@ class ContactForm extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleFileChange = this.handleFileChange.bind(this);
   }
 
   handleSubmit(e) {
@@ -79,6 +81,13 @@ class ContactForm extends React.Component {
     this.setState({ [name]: value, errors });
   }
 
+  handleFileChange(e) {
+    const file = e.target.file[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => this.setState({ fileUpload: reader.result });
+  }
+
   render() {
     const {
       firstName,
@@ -87,6 +96,7 @@ class ContactForm extends React.Component {
       email,
       address,
       errors,
+      fileUpload,
     } = this.state;
 
     return (
@@ -190,6 +200,30 @@ class ContactForm extends React.Component {
               {errors.address.length > 0 ? errors.address : 'Enter an address.'}
             </span>
           </label>
+        </div>
+
+        <div className="form__group">
+          <label htmlFor="fileUpload">
+            <input
+              type="file"
+              accept="image/*"
+              name="fileUpload"
+              className="form__upload"
+              id="fileUpload"
+              placeholder="Upload"
+              onChange={this.handleFileChange}
+            />
+
+            <span className="form__label-upload label-text">Upload photo</span>
+          </label>
+
+          {fileUpload && (
+            <img
+              className="form__preview-source"
+              src={fileUpload}
+              alt="Preview Photo"
+            />
+          )}
         </div>
 
         <div className="form__group">
