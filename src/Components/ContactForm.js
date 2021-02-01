@@ -84,6 +84,7 @@ class ContactForm extends React.Component {
 
   handleFileChange(e) {
     const { errors } = this.state;
+    console.log('e: ', e);
     const file = e.target.files[0];
     const fileExt = file.type.split('/')[1].toLowerCase();
     const { size } = file;
