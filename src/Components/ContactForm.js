@@ -58,7 +58,7 @@ class ContactForm extends React.Component {
           errors.firstName = 'Must be less than or equal to 20 characters.';
         else if (!regex.regexName.test(value))
           errors.firstName = 'Please use a valid first name';
-        else errors.firstName = 'Woohoo!';
+        else errors.firstName = '';
         break;
 
       case 'lastName':
@@ -68,19 +68,19 @@ class ContactForm extends React.Component {
           errors.lastName = 'Must be less than or equal to 40 characters.';
         else if (!regex.regexName.test(value))
           errors.lastName = 'Please use a valid last name';
-        else errors.lastName = 'Woohoo!';
+        else errors.lastName = '';
         break;
 
       case 'phoneNumber':
         if (!regex.regexPhone.test(value))
           errors.phoneNumber = 'Please provide a valid phone number.';
-        else errors.phoneNumber = 'Woohoo!';
+        else errors.phoneNumber = '';
         break;
 
       case 'email':
         if (!regex.regexEmail.test(value))
           errors.email = 'Please provide a valid email.';
-        else errors.email = 'Woohoo!';
+        else errors.email = '';
         break;
 
       case 'address':
@@ -90,7 +90,7 @@ class ContactForm extends React.Component {
           errors.address = 'Must be less than or equal to 96 character.';
         else if (!regex.regexAddress.test(value))
           errors.address = 'Please provide a valid address.';
-        else errors.address = 'Woohoo!';
+        else errors.address = '';
         break;
 
       default:
@@ -113,7 +113,7 @@ class ContactForm extends React.Component {
         errors.fileUpload = 'Image files must be in jpg, jpeg, or png.';
       else if (size > 1024000)
         errors.fileUpload = 'Max upload size of 1MB only.';
-      else errors.fileUpload = 'Woohoo!';
+      else errors.fileUpload = '';
 
       if (!errors.fileUpload.length) {
         const reader = new FileReader();
