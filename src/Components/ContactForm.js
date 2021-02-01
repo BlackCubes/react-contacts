@@ -47,6 +47,7 @@ class ContactForm extends React.Component {
           errors.firstName = 'Please use a valid first name';
         else errors.firstName = 'Woohoo!';
         break;
+
       case 'lastName':
         if (value.length < 2)
           errors.lastName = 'Must be a minimum of 2 characters.';
@@ -56,16 +57,19 @@ class ContactForm extends React.Component {
           errors.lastName = 'Please use a valid last name';
         else errors.lastName = 'Woohoo!';
         break;
+
       case 'phoneNumber':
         if (!regex.regexPhone.test(value))
           errors.phoneNumber = 'Please provide a valid phone number.';
         else errors.phoneNumber = 'Woohoo!';
         break;
+
       case 'email':
         if (!regex.regexEmail.test(value))
           errors.email = 'Please provide a valid email.';
         else errors.email = 'Woohoo!';
         break;
+
       case 'address':
         if (value.length < 3)
           errors.address = 'Must be a minimum of 3 characters.';
@@ -75,6 +79,7 @@ class ContactForm extends React.Component {
           errors.address = 'Please provide a valid address.';
         else errors.address = 'Woohoo!';
         break;
+
       default:
         break;
     }
@@ -95,7 +100,7 @@ class ContactForm extends React.Component {
         errors.fileUpload = 'Image files must be in jpg, jpeg, or png.';
       else if (size > 1024000)
         errors.fileUpload = 'Max upload size of 1MB only.';
-      else errors.fileUpload = '';
+      else errors.fileUpload = 'Woohoo!';
 
       if (!errors.fileUpload.length) {
         const reader = new FileReader();
@@ -132,7 +137,7 @@ class ContactForm extends React.Component {
             />
 
             <span className="form__label label-text">
-              {errors.firstName.length > 0
+              {errors.firstName.length
                 ? errors.firstName
                 : 'Enter a first name.'}
             </span>
@@ -153,9 +158,7 @@ class ContactForm extends React.Component {
             />
 
             <span className="form__label label-text">
-              {errors.lastName.length > 0
-                ? errors.lastName
-                : 'Enter a last name.'}
+              {errors.lastName.length ? errors.lastName : 'Enter a last name.'}
             </span>
           </label>
         </div>
@@ -174,7 +177,7 @@ class ContactForm extends React.Component {
             />
 
             <span className="form__label label-text">
-              {errors.phoneNumber.length > 0
+              {errors.phoneNumber.length
                 ? errors.phoneNumber
                 : 'Enter a phone number.'}
             </span>
@@ -195,7 +198,7 @@ class ContactForm extends React.Component {
             />
 
             <span className="form__label label-text">
-              {errors.email.length > 0 ? errors.email : 'Enter an email.'}
+              {errors.email.length ? errors.email : 'Enter an email.'}
             </span>
           </label>
         </div>
@@ -214,7 +217,7 @@ class ContactForm extends React.Component {
             />
 
             <span className="form__label label-text">
-              {errors.address.length > 0 ? errors.address : 'Enter an address.'}
+              {errors.address.length ? errors.address : 'Enter an address.'}
             </span>
           </label>
         </div>
@@ -232,9 +235,7 @@ class ContactForm extends React.Component {
             />
 
             <span className="form__label-upload label-text">
-              {errors.fileUpload.length > 0
-                ? errors.fileUpload
-                : 'Upload photo.'}
+              {errors.fileUpload.length ? errors.fileUpload : 'Upload photo.'}
             </span>
           </label>
 
