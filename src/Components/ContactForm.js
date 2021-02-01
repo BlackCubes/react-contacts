@@ -82,7 +82,7 @@ class ContactForm extends React.Component {
   }
 
   handleFileChange(e) {
-    const file = e.target.file[0];
+    const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => this.setState({ fileUpload: reader.result });
