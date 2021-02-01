@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 import ContactForm from './ContactForm';
 
 function App() {
-  return <ContactForm />;
+  const [contacts, setContacts] = useState([]);
+
+  const onSubmit = (newContacts) => setContacts([newContacts]);
+
+  console.log('contacts', contacts);
+
+  return <ContactForm onSubmit={onSubmit} />;
 }
 
 export default App;
