@@ -83,8 +83,8 @@ class ContactForm extends React.Component {
   }
 
   handleFileChange(e) {
-    this.setState({ fileUpload: null });
     if (e.target.files.length) {
+      this.setState({ fileUpload: null });
       const { errors } = this.state;
       console.log('e: ', e);
       const file = e.target.files[0];
