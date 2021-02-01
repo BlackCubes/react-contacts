@@ -83,22 +83,25 @@ class ContactForm extends React.Component {
   }
 
   handleFileChange(e) {
-    const { errors } = this.state;
-    console.log('e: ', e);
-    const file = e.target.files[0];
-    const fileExt = file.type.split('/')[1].toLowerCase();
-    const { size } = file;
+    if (e.target.files.length) {
+      const { errors } = this.state;
+      console.log('e: ', e);
+      const file = e.target.files[0];
+      const fileExt = file.type.split('/')[1].toLowerCase();
+      const { size } = file;
 
-    console.log(file);
-    if (!regex.regexPhoto.test(fileExt))
-      errors.fileUpload = 'Image files must be in jpg, jpeg, or png.';
-    else if (size > 1024000) errors.fileUpload = 'Max upload size of 1MB only.';
-    else errors.fileUpload = '';
+      console.log(file);
+      if (!regex.regexPhoto.test(fileExt))
+        errors.fileUpload = 'Image files must be in jpg, jpeg, or png.';
+      else if (size > 1024000)
+        errors.fileUpload = 'Max upload size of 1MB only.';
+      else errors.fileUpload = '';
 
-    if (errors.fileUpload.length === 0) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => this.setState({ fileUpload: reader.result });
+      if (errors.fileUpload.length === 0) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => this.setState({ fileUpload: reader.result });
+      }
     }
   }
 
