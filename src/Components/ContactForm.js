@@ -34,7 +34,7 @@ class ContactForm extends React.Component {
     const { onSubmit } = this.props;
     const { errors, ...inputs } = this.state;
 
-    if (this.validateForm(errors)) onSubmit([inputs]);
+    if (this.validateForm(errors)) onSubmit(inputs);
     this.setState({
       firstName: '',
       lastName: '',
