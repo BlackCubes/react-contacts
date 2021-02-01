@@ -97,7 +97,7 @@ class ContactForm extends React.Component {
         errors.fileUpload = 'Max upload size of 1MB only.';
       else errors.fileUpload = '';
 
-      if (errors.fileUpload.length) {
+      if (!errors.fileUpload.length) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => this.setState({ fileUpload: reader.result });
