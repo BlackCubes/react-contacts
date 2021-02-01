@@ -221,7 +221,7 @@ class ContactForm extends React.Component {
             <img
               className="form__preview-source"
               src={fileUpload}
-              alt="Preview Photo"
+              alt="Selected Preview"
             />
           )}
         </div>
