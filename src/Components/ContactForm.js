@@ -117,7 +117,7 @@ const ContactForm = ({ onSubmit }) => {
     }
   };
 
-  console.log(errors);
+  console.log(firstName);
 
   return (
     <form className="form" onSubmit={handleSubmit} noValidate>
@@ -130,7 +130,7 @@ const ContactForm = ({ onSubmit }) => {
             id="firstName"
             value={firstName}
             placeholder="First Name"
-            onChange={handleChange}
+            onChange={(e) => setFirstName(e.target.value)}
             noValidate
           />
 
