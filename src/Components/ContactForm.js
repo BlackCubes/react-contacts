@@ -42,7 +42,6 @@ const ContactForm = ({ onSubmit }) => {
   };
 
   const handleChange = (e) => {
-    e.persist();
     const { name, value } = e.target;
 
     switch (name) {
