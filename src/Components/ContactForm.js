@@ -140,6 +140,8 @@ const ContactForm = ({ onSubmit }) => {
     }
   };
 
+  console.log(errors);
+
   return (
     <form className="form" onSubmit={handleSubmit} noValidate>
       <div className="form__group">
