@@ -124,7 +124,7 @@ const ContactForm = ({ onSubmit }) => {
         break;
     }
 
-    if (validateForm(errors)) setValues((val) => ({ ...val, [name]: value }));
+    setValues((val) => ({ ...val, [name]: value }));
   };
 
   const handleFileChange = (e) => {
