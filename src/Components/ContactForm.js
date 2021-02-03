@@ -61,7 +61,7 @@ const ContactForm = ({ onSubmit }) => {
             ...err,
             [name]: 'Please use a valid first name.',
           }));
-        else setValues((val) => ({ ...val, [name]: value }));
+        else setErrors((err) => ({ ...err, [name]: '' }));
         break;
 
       case 'lastName':
@@ -80,7 +80,7 @@ const ContactForm = ({ onSubmit }) => {
             ...err,
             [name]: 'Please use a valid last name.',
           }));
-        else setValues((val) => ({ ...val, [name]: value }));
+        else setErrors((err) => ({ ...err, [name]: '' }));
         break;
 
       case 'phoneNumber':
@@ -89,7 +89,7 @@ const ContactForm = ({ onSubmit }) => {
             ...err,
             [name]: 'Please use a valid phone number.',
           }));
-        else setValues((val) => ({ ...val, [name]: value }));
+        else setErrors((err) => ({ ...err, [name]: '' }));
         break;
 
       case 'email':
@@ -98,7 +98,7 @@ const ContactForm = ({ onSubmit }) => {
             ...err,
             [name]: 'Please provide a valid email.',
           }));
-        else setValues((val) => ({ ...val, [name]: value }));
+        else setErrors((err) => ({ ...err, [name]: '' }));
         break;
 
       case 'address':
@@ -117,12 +117,14 @@ const ContactForm = ({ onSubmit }) => {
             ...err,
             [name]: 'Please use a valid address.',
           }));
-        else setValues((val) => ({ ...val, [name]: value }));
+        else setErrors((err) => ({ ...err, [name]: '' }));
         break;
 
       default:
         break;
     }
+
+    if (validateForm(errors)) setValues((val) => ({ ...val, [name]: value }));
   };
 
   const handleFileChange = (e) => {
