@@ -158,7 +158,7 @@ const ContactForm = ({ onSubmit }) => {
           />
 
           <span className="form__label label-text">
-            {errors.firstName.length ? errors.firstName : 'Enter a first name.'}
+            {errors.firstName ? errors.firstName : 'Enter a first name.'}
           </span>
         </label>
       </div>
@@ -177,7 +177,7 @@ const ContactForm = ({ onSubmit }) => {
           />
 
           <span className="form__label label-text">
-            {errors.lastName.length ? errors.lastName : 'Enter a last name.'}
+            {errors.lastName ? errors.lastName : 'Enter a last name.'}
           </span>
         </label>
       </div>
@@ -196,9 +196,7 @@ const ContactForm = ({ onSubmit }) => {
           />
 
           <span className="form__label label-text">
-            {errors.phoneNumber.length
-              ? errors.phoneNumber
-              : 'Enter a phone number.'}
+            {errors.phoneNumber ? errors.phoneNumber : 'Enter a phone number.'}
           </span>
         </label>
       </div>
@@ -217,7 +215,7 @@ const ContactForm = ({ onSubmit }) => {
           />
 
           <span className="form__label label-text">
-            {errors.email.length ? errors.email : 'Enter an email.'}
+            {errors.email ? errors.email : 'Enter an email.'}
           </span>
         </label>
       </div>
@@ -236,7 +234,7 @@ const ContactForm = ({ onSubmit }) => {
           />
 
           <span className="form__label label-text">
-            {errors.address.length ? errors.address : 'Enter an address.'}
+            {errors.address ? errors.address : 'Enter an address.'}
           </span>
         </label>
       </div>
@@ -254,7 +252,7 @@ const ContactForm = ({ onSubmit }) => {
           />
 
           <span className="form__label-upload label-text">
-            {errors.fileUpload.length ? errors.fileUpload : 'Upload photo.'}
+            {errors.fileUpload ? errors.fileUpload : 'Upload photo.'}
           </span>
         </label>
 
