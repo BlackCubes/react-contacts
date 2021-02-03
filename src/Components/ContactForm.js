@@ -10,14 +10,7 @@ const ContactForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [fileUpload, setFileUpload] = useState(null);
-  const [errors, setErrors] = useState({
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    email: '',
-    address: '',
-    fileUpload: '',
-  });
+  const [errors, setErrors] = useState({});
 
   const validateForm = (errorList) => {
     let valid = true;
@@ -50,87 +43,71 @@ const ContactForm = ({ onSubmit }) => {
   const handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
+    const errorList = {};
 
     switch (name) {
       case 'firstName':
         if (value.length < 2)
-          setErrors({ firstName: 'Must be a minimum of 2 characters.' });
+          errorList.firstName = 'Must be a minimum of 2 characters.';
         else if (value.length > 20)
-          setErrors({
-            firstName: 'Must be less than or equal to 20 characters.',
-          });
+          errorList.firstName = 'Must be less than or equal to 20 characters.';
         else if (!regex.regexName.test(value))
-          setErrors({ firstName: 'Please use a valid first name' });
-        else {
-          setErrors({ firstName: '' });
-          setFirstName(value);
-        }
+          errorList.firstName = 'Please use a valid first name';
+        else setFirstName(value);
         break;
 
       case 'lastName':
         if (value.length < 2)
-          setErrors({ lastName: 'Must be a minimum of 2 characters.' });
+          errorList.lastName = 'Must be a minimum of 2 characters.';
         else if (value.length > 40)
-          setErrors({
-            lastName: 'Must be less than or equal to 40 characters.',
-          });
+          errorList.lastName = 'Must be less than or equal to 40 characters.';
         else if (!regex.regexName.test(value))
-          setErrors({ lastName: 'Please use a valid last name' });
-        else {
-          setErrors({ lastName: '' });
-          setLastName({ value });
-        }
+          errorList.lastName = 'Please use a valid last name';
+        else setLastName({ value });
         break;
 
       case 'phoneNumber':
         if (!regex.regexPhone.test(value))
-          setErrors({ phoneNumber: 'Please provide a valid phone number.' });
-        else {
-          setErrors({ phoneNumber: '' });
-          setPhoneNumber(value);
-        }
+          errorList.phoneNumber = 'Please provide a valid phone number.';
+        else setPhoneNumber(value);
         break;
 
       case 'email':
         if (!regex.regexEmail.test(value))
-          setErrors({ email: 'Please provide a valid email.' });
-        else {
-          setErrors({ email: '' });
-          setEmail(value);
-        }
+          errorList.email = 'Please provide a valid email.';
+        else setEmail(value);
         break;
 
       case 'address':
         if (value.length < 3)
-          setErrors({ address: 'Must be a minimum of 3 characters.' });
+          errorList.address = 'Must be a minimum of 3 characters.';
         else if (value.length > 96)
-          setErrors({ address: 'Must be less than or equal to 96 character.' });
+          errorList.address = 'Must be less than or equal to 96 character.';
         else if (!regex.regexAddress.test(value))
-          setErrors({ address: 'Please provide a valid address.' });
-        else {
-          setErrors({ address: '' });
-          setAddress(value);
-        }
+          errorList.address = 'Please provide a valid address.';
+        else setAddress(value);
         break;
 
       default:
         break;
     }
+
+    setErrors(errorList);
   };
 
   const handleFileChange = (e) => {
     if (e.targer.files.length) {
       setFileUpload(null);
 
+      const errorList = {};
       const file = e.target.files[0];
       const fileExt = file.type.split('/')[1].toLowerCase();
       const { size } = file;
 
       if (!regex.regexPhoto.test(fileExt))
-        setErrors({ fileUpload: 'Image files must be in jpg, jpeg, or png.' });
+        errorList.fileUpload = 'Image files must be in jpg, jpeg, or png.';
       else if (size > 1024000)
-        setErrors({ fileUpload: 'Max upload size of 1MB only.' });
-      else setErrors({ fileUpload: '' });
+        errorList.fileUpload = 'Max upload size of 1MB only.';
 
       if (!errors.fileUpload.length) {
         const reader = new FileReader();
