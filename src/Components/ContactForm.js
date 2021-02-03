@@ -1,283 +1,554 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import * as regex from '../utils/regex';
 
-class ContactForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      email: '',
-      address: '',
-      fileUpload: null,
-      errors: {
-        firstName: '',
-        lastName: '',
-        phoneNumber: '',
-        email: '',
-        address: '',
-        fileUpload: '',
-      },
-    };
+const ContactForm = ({ onSubmit }) => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [fileUpload, setFileUpload] = useState(null);
+  const [errors, setErrors] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+    address: '',
+    fileUpload: '',
+  });
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleFileChange = this.handleFileChange.bind(this);
-    this.validateForm = this.validateForm.bind(this);
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    const { onSubmit } = this.props;
-    const { errors, ...inputs } = this.state;
-
-    if (this.validateForm(errors)) onSubmit(inputs);
-    this.setState({
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      email: '',
-      address: '',
-      fileUpload: null,
-    });
-  }
-
-  handleChange(e) {
-    e.preventDefault();
-    const { name, value } = e.target;
-    const { errors } = this.state;
-
-    switch (name) {
-      case 'firstName':
-        if (value.length < 2)
-          errors.firstName = 'Must be a minimum of 2 characters.';
-        else if (value.length > 20)
-          errors.firstName = 'Must be less than or equal to 20 characters.';
-        else if (!regex.regexName.test(value))
-          errors.firstName = 'Please use a valid first name';
-        else errors.firstName = '';
-        break;
-
-      case 'lastName':
-        if (value.length < 2)
-          errors.lastName = 'Must be a minimum of 2 characters.';
-        else if (value.length > 40)
-          errors.lastName = 'Must be less than or equal to 40 characters.';
-        else if (!regex.regexName.test(value))
-          errors.lastName = 'Please use a valid last name';
-        else errors.lastName = '';
-        break;
-
-      case 'phoneNumber':
-        if (!regex.regexPhone.test(value))
-          errors.phoneNumber = 'Please provide a valid phone number.';
-        else errors.phoneNumber = '';
-        break;
-
-      case 'email':
-        if (!regex.regexEmail.test(value))
-          errors.email = 'Please provide a valid email.';
-        else errors.email = '';
-        break;
-
-      case 'address':
-        if (value.length < 3)
-          errors.address = 'Must be a minimum of 3 characters.';
-        else if (value.length > 96)
-          errors.address = 'Must be less than or equal to 96 character.';
-        else if (!regex.regexAddress.test(value))
-          errors.address = 'Please provide a valid address.';
-        else errors.address = '';
-        break;
-
-      default:
-        break;
-    }
-
-    this.setState({ [name]: value, errors });
-  }
-
-  handleFileChange(e) {
-    if (e.target.files.length) {
-      this.setState({ fileUpload: null });
-
-      const { errors } = this.state;
-      const file = e.target.files[0];
-      const fileExt = file.type.split('/')[1].toLowerCase();
-      const { size } = file;
-
-      if (!regex.regexPhoto.test(fileExt))
-        errors.fileUpload = 'Image files must be in jpg, jpeg, or png.';
-      else if (size > 1024000)
-        errors.fileUpload = 'Max upload size of 1MB only.';
-      else errors.fileUpload = '';
-
-      if (!errors.fileUpload.length) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => this.setState({ fileUpload: reader.result });
-      }
-    }
-  }
-
-  validateForm(errors) {
+  const validateForm = (errorList) => {
     let valid = true;
-    Object.values(errors).forEach((err) => {
+    Object.values(errorList).forEach((err) => {
       if (err.length) valid = false;
     });
     return valid;
-  }
+  };
 
-  render() {
-    const {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const inputs = {
       firstName,
       lastName,
       phoneNumber,
       email,
       address,
-      errors,
       fileUpload,
-    } = this.state;
+    };
 
-    return (
-      <form className="form" onSubmit={this.handleSubmit} noValidate>
-        <div className="form__group">
-          <label htmlFor="firstName">
-            <input
-              type="text"
-              name="firstName"
-              className="form__input input-text"
-              id="firstName"
-              value={firstName}
-              placeholder="First Name"
-              onChange={this.handleChange}
-              noValidate
-            />
+    if (validateForm(errors)) onSubmit(inputs);
+    setFirstName('');
+    setLastName('');
+    setPhoneNumber('');
+    setEmail('');
+    setAddress('');
+    setFileUpload('');
+  };
 
-            <span className="form__label label-text">
-              {errors.firstName.length
-                ? errors.firstName
-                : 'Enter a first name.'}
-            </span>
-          </label>
-        </div>
+  const handleChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
 
-        <div className="form__group">
-          <label htmlFor="lastName">
-            <input
-              type="text"
-              name="lastName"
-              className="form__input input-text"
-              id="lastName"
-              value={lastName}
-              placeholder="Last Name"
-              onChange={this.handleChange}
-              noValidate
-            />
+    switch (name) {
+      case 'firstName':
+        if (value.length < 2)
+          setErrors({ firstName: 'Must be a minimum of 2 characters.' });
+        else if (value.length > 20)
+          setErrors({
+            firstName: 'Must be less than or equal to 20 characters.',
+          });
+        else if (!regex.regexName.test(value))
+          setErrors({ firstName: 'Please use a valid first name' });
+        else {
+          setErrors({ firstName: '' });
+          setFirstName(value);
+        }
+        break;
 
-            <span className="form__label label-text">
-              {errors.lastName.length ? errors.lastName : 'Enter a last name.'}
-            </span>
-          </label>
-        </div>
+      case 'lastName':
+        if (value.length < 2)
+          setErrors({ lastName: 'Must be a minimum of 2 characters.' });
+        else if (value.length > 40)
+          setErrors({
+            lastName: 'Must be less than or equal to 40 characters.',
+          });
+        else if (!regex.regexName.test(value))
+          setErrors({ lastName: 'Please use a valid last name' });
+        else {
+          setErrors({ lastName: '' });
+          setLastName({ value });
+        }
+        break;
 
-        <div className="form__group">
-          <label htmlFor="phoneNumber">
-            <input
-              type="tel"
-              name="phoneNumber"
-              className="form__input input-text"
-              id="phoneNumber"
-              value={phoneNumber}
-              placeholder="Phone Number"
-              onChange={this.handleChange}
-              noValidate
-            />
+      case 'phoneNumber':
+        if (!regex.regexPhone.test(value))
+          setErrors({ phoneNumber: 'Please provide a valid phone number.' });
+        else {
+          setErrors({ phoneNumber: '' });
+          setPhoneNumber(value);
+        }
+        break;
 
-            <span className="form__label label-text">
-              {errors.phoneNumber.length
-                ? errors.phoneNumber
-                : 'Enter a phone number.'}
-            </span>
-          </label>
-        </div>
+      case 'email':
+        if (!regex.regexEmail.test(value))
+          setErrors({ email: 'Please provide a valid email.' });
+        else {
+          setErrors({ email: '' });
+          setEmail(value);
+        }
+        break;
 
-        <div className="form__group">
-          <label htmlFor="email">
-            <input
-              type="email"
-              name="email"
-              className="form__input input-text"
-              id="email"
-              value={email}
-              placeholder="Email"
-              onChange={this.handleChange}
-              noValidate
-            />
+      case 'address':
+        if (value.length < 3)
+          setErrors({ address: 'Must be a minimum of 3 characters.' });
+        else if (value.length > 96)
+          setErrors({ address: 'Must be less than or equal to 96 character.' });
+        else if (!regex.regexAddress.test(value))
+          setErrors({ address: 'Please provide a valid address.' });
+        else {
+          setErrors({ address: '' });
+          setAddress(value);
+        }
+        break;
 
-            <span className="form__label label-text">
-              {errors.email.length ? errors.email : 'Enter an email.'}
-            </span>
-          </label>
-        </div>
+      default:
+        break;
+    }
+  };
 
-        <div className="form__group">
-          <label htmlFor="address">
-            <input
-              type="address"
-              name="address"
-              className="form__input input-text"
-              id="address"
-              value={address}
-              placeholder="Address"
-              onChange={this.handleChange}
-              noValidate
-            />
+  const handleFileChange = (e) => {
+    if (e.targer.files.length) {
+      setFileUpload(null);
 
-            <span className="form__label label-text">
-              {errors.address.length ? errors.address : 'Enter an address.'}
-            </span>
-          </label>
-        </div>
+      const file = e.target.files[0];
+      const fileExt = file.type.split('/')[1].toLowerCase();
+      const { size } = file;
 
-        <div className="form__group">
-          <label htmlFor="fileUpload">
-            <input
-              type="file"
-              accept="image/*"
-              name="fileUpload"
-              className="form__upload"
-              id="fileUpload"
-              placeholder="Upload"
-              onChange={this.handleFileChange}
-            />
+      if (!regex.regexPhoto.test(fileExt))
+        setErrors({ fileUpload: 'Image files must be in jpg, jpeg, or png.' });
+      else if (size > 1024000)
+        setErrors({ fileUpload: 'Max upload size of 1MB only.' });
+      else setErrors({ fileUpload: '' });
 
-            <span className="form__label-upload label-text">
-              {errors.fileUpload.length ? errors.fileUpload : 'Upload photo.'}
-            </span>
-          </label>
+      if (!errors.fileUpload.length) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => setFileUpload(reader.result);
+      }
+    }
+  };
 
-          {fileUpload && (
-            <img
-              className="form__preview-source"
-              src={fileUpload}
-              alt="Selected Preview"
-            />
-          )}
-        </div>
+  return (
+    <form className="form" onSubmit={handleSubmit} noValidate>
+      <div className="form__group">
+        <label htmlFor="firstName">
+          <input
+            type="text"
+            name="firstName"
+            className="form__input input-text"
+            id="firstName"
+            value={firstName}
+            placeholder="First Name"
+            onChange={handleChange}
+            noValidate
+          />
 
-        <div className="form__group">
-          <button className="btn" type="submit">
-            Add Contact
-          </button>
-        </div>
-      </form>
-    );
-  }
-}
+          <span className="form__label label-text">
+            {errors.firstName.length ? errors.firstName : 'Enter a first name.'}
+          </span>
+        </label>
+      </div>
+
+      <div className="form__group">
+        <label htmlFor="lastName">
+          <input
+            type="text"
+            name="lastName"
+            className="form__input input-text"
+            id="lastName"
+            value={lastName}
+            placeholder="Last Name"
+            onChange={handleChange}
+            noValidate
+          />
+
+          <span className="form__label label-text">
+            {errors.lastName.length ? errors.lastName : 'Enter a last name.'}
+          </span>
+        </label>
+      </div>
+
+      <div className="form__group">
+        <label htmlFor="phoneNumber">
+          <input
+            type="tel"
+            name="phoneNumber"
+            className="form__input input-text"
+            id="phoneNumber"
+            value={phoneNumber}
+            placeholder="Phone Number"
+            onChange={handleChange}
+            noValidate
+          />
+
+          <span className="form__label label-text">
+            {errors.phoneNumber.length
+              ? errors.phoneNumber
+              : 'Enter a phone number.'}
+          </span>
+        </label>
+      </div>
+
+      <div className="form__group">
+        <label htmlFor="email">
+          <input
+            type="email"
+            name="email"
+            className="form__input input-text"
+            id="email"
+            value={email}
+            placeholder="Email"
+            onChange={handleChange}
+            noValidate
+          />
+
+          <span className="form__label label-text">
+            {errors.email.length ? errors.email : 'Enter an email.'}
+          </span>
+        </label>
+      </div>
+
+      <div className="form__group">
+        <label htmlFor="address">
+          <input
+            type="address"
+            name="address"
+            className="form__input input-text"
+            id="address"
+            value={address}
+            placeholder="Address"
+            onChange={handleChange}
+            noValidate
+          />
+
+          <span className="form__label label-text">
+            {errors.address.length ? errors.address : 'Enter an address.'}
+          </span>
+        </label>
+      </div>
+
+      <div className="form__group">
+        <label htmlFor="fileUpload">
+          <input
+            type="file"
+            accept="image/*"
+            name="fileUpload"
+            className="form__upload"
+            id="fileUpload"
+            placeholder="Upload"
+            onChange={handleFileChange}
+          />
+
+          <span className="form__label-upload label-text">
+            {errors.fileUpload.length ? errors.fileUpload : 'Upload photo.'}
+          </span>
+        </label>
+
+        {fileUpload && (
+          <img
+            className="form__preview-source"
+            src={fileUpload}
+            alt="Selected Preview"
+          />
+        )}
+      </div>
+
+      <div className="form__group">
+        <button className="btn" type="submit">
+          Add Contact
+        </button>
+      </div>
+    </form>
+  );
+};
+
+// class ContactForm extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       firstName: '',
+//       lastName: '',
+//       phoneNumber: '',
+//       email: '',
+//       address: '',
+//       fileUpload: null,
+//       errors: {
+//         firstName: '',
+//         lastName: '',
+//         phoneNumber: '',
+//         email: '',
+//         address: '',
+//         fileUpload: '',
+//       },
+//     };
+
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//     this.handleChange = this.handleChange.bind(this);
+//     this.handleFileChange = this.handleFileChange.bind(this);
+//     this.validateForm = this.validateForm.bind(this);
+//   }
+
+//   handleSubmit(e) {
+//     e.preventDefault();
+//     const { onSubmit } = this.props;
+//     const { errors, ...inputs } = this.state;
+
+//     if (this.validateForm(errors)) onSubmit(inputs);
+//     this.setState({
+//       firstName: '',
+//       lastName: '',
+//       phoneNumber: '',
+//       email: '',
+//       address: '',
+//       fileUpload: null,
+//     });
+//   }
+
+//   handleChange(e) {
+//     e.preventDefault();
+//     const { name, value } = e.target;
+//     const { errors } = this.state;
+
+//     switch (name) {
+//       case 'firstName':
+//         if (value.length < 2)
+//           errors.firstName = 'Must be a minimum of 2 characters.';
+//         else if (value.length > 20)
+//           errors.firstName = 'Must be less than or equal to 20 characters.';
+//         else if (!regex.regexName.test(value))
+//           errors.firstName = 'Please use a valid first name';
+//         else errors.firstName = '';
+//         break;
+
+//       case 'lastName':
+//         if (value.length < 2)
+//           errors.lastName = 'Must be a minimum of 2 characters.';
+//         else if (value.length > 40)
+//           errors.lastName = 'Must be less than or equal to 40 characters.';
+//         else if (!regex.regexName.test(value))
+//           errors.lastName = 'Please use a valid last name';
+//         else errors.lastName = '';
+//         break;
+
+//       case 'phoneNumber':
+//         if (!regex.regexPhone.test(value))
+//           errors.phoneNumber = 'Please provide a valid phone number.';
+//         else errors.phoneNumber = '';
+//         break;
+
+//       case 'email':
+//         if (!regex.regexEmail.test(value))
+//           errors.email = 'Please provide a valid email.';
+//         else errors.email = '';
+//         break;
+
+//       case 'address':
+//         if (value.length < 3)
+//           errors.address = 'Must be a minimum of 3 characters.';
+//         else if (value.length > 96)
+//           errors.address = 'Must be less than or equal to 96 character.';
+//         else if (!regex.regexAddress.test(value))
+//           errors.address = 'Please provide a valid address.';
+//         else errors.address = '';
+//         break;
+
+//       default:
+//         break;
+//     }
+
+//     this.setState({ [name]: value, errors });
+//   }
+
+//   handleFileChange(e) {
+//     if (e.target.files.length) {
+//       this.setState({ fileUpload: null });
+
+//       const { errors } = this.state;
+//       const file = e.target.files[0];
+//       const fileExt = file.type.split('/')[1].toLowerCase();
+//       const { size } = file;
+
+//       if (!regex.regexPhoto.test(fileExt))
+//         errors.fileUpload = 'Image files must be in jpg, jpeg, or png.';
+//       else if (size > 1024000)
+//         errors.fileUpload = 'Max upload size of 1MB only.';
+//       else errors.fileUpload = '';
+
+//       if (!errors.fileUpload.length) {
+//         const reader = new FileReader();
+//         reader.readAsDataURL(file);
+//         reader.onloadend = () => this.setState({ fileUpload: reader.result });
+//       }
+//     }
+//   }
+
+//   validateForm(errors) {
+//     let valid = true;
+//     Object.values(errors).forEach((err) => {
+//       if (err.length) valid = false;
+//     });
+//     return valid;
+//   }
+
+//   render() {
+//     const {
+//       firstName,
+//       lastName,
+//       phoneNumber,
+//       email,
+//       address,
+//       errors,
+//       fileUpload,
+//     } = this.state;
+
+//     return (
+//       <form className="form" onSubmit={this.handleSubmit} noValidate>
+//         <div className="form__group">
+//           <label htmlFor="firstName">
+//             <input
+//               type="text"
+//               name="firstName"
+//               className="form__input input-text"
+//               id="firstName"
+//               value={firstName}
+//               placeholder="First Name"
+//               onChange={this.handleChange}
+//               noValidate
+//             />
+
+//             <span className="form__label label-text">
+//               {errors.firstName.length
+//                 ? errors.firstName
+//                 : 'Enter a first name.'}
+//             </span>
+//           </label>
+//         </div>
+
+//         <div className="form__group">
+//           <label htmlFor="lastName">
+//             <input
+//               type="text"
+//               name="lastName"
+//               className="form__input input-text"
+//               id="lastName"
+//               value={lastName}
+//               placeholder="Last Name"
+//               onChange={this.handleChange}
+//               noValidate
+//             />
+
+//             <span className="form__label label-text">
+//               {errors.lastName.length ? errors.lastName : 'Enter a last name.'}
+//             </span>
+//           </label>
+//         </div>
+
+//         <div className="form__group">
+//           <label htmlFor="phoneNumber">
+//             <input
+//               type="tel"
+//               name="phoneNumber"
+//               className="form__input input-text"
+//               id="phoneNumber"
+//               value={phoneNumber}
+//               placeholder="Phone Number"
+//               onChange={this.handleChange}
+//               noValidate
+//             />
+
+//             <span className="form__label label-text">
+//               {errors.phoneNumber.length
+//                 ? errors.phoneNumber
+//                 : 'Enter a phone number.'}
+//             </span>
+//           </label>
+//         </div>
+
+//         <div className="form__group">
+//           <label htmlFor="email">
+//             <input
+//               type="email"
+//               name="email"
+//               className="form__input input-text"
+//               id="email"
+//               value={email}
+//               placeholder="Email"
+//               onChange={this.handleChange}
+//               noValidate
+//             />
+
+//             <span className="form__label label-text">
+//               {errors.email.length ? errors.email : 'Enter an email.'}
+//             </span>
+//           </label>
+//         </div>
+
+//         <div className="form__group">
+//           <label htmlFor="address">
+//             <input
+//               type="address"
+//               name="address"
+//               className="form__input input-text"
+//               id="address"
+//               value={address}
+//               placeholder="Address"
+//               onChange={this.handleChange}
+//               noValidate
+//             />
+
+//             <span className="form__label label-text">
+//               {errors.address.length ? errors.address : 'Enter an address.'}
+//             </span>
+//           </label>
+//         </div>
+
+//         <div className="form__group">
+//           <label htmlFor="fileUpload">
+//             <input
+//               type="file"
+//               accept="image/*"
+//               name="fileUpload"
+//               className="form__upload"
+//               id="fileUpload"
+//               placeholder="Upload"
+//               onChange={this.handleFileChange}
+//             />
+
+//             <span className="form__label-upload label-text">
+//               {errors.fileUpload.length ? errors.fileUpload : 'Upload photo.'}
+//             </span>
+//           </label>
+
+//           {fileUpload && (
+//             <img
+//               className="form__preview-source"
+//               src={fileUpload}
+//               alt="Selected Preview"
+//             />
+//           )}
+//         </div>
+
+//         <div className="form__group">
+//           <button className="btn" type="submit">
+//             Add Contact
+//           </button>
+//         </div>
+//       </form>
+//     );
+//   }
+// }
 
 ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
