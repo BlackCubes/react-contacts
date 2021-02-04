@@ -148,6 +148,8 @@ const ContactForm = ({ onSubmit }) => {
         }));
       else setErrors((err) => ({ ...err, fileUpload: '' }));
 
+      console.log('fileUpload errors: ', errors);
+
       if (!errors.fileUpload.length) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
