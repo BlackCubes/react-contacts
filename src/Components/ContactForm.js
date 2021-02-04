@@ -138,9 +138,6 @@ const ContactForm = ({ onSubmit }) => {
     }
   };
 
-  console.log('values: ', values);
-  console.log('errors: ', errors);
-
   return (
     <form className="form" onSubmit={handleSubmit} noValidate>
       <div className="form__group">
