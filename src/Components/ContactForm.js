@@ -128,18 +128,24 @@ const ContactForm = ({ onSubmit }) => {
   };
 
   const handleFileChange = (e) => {
-    if (e.targer.files.length) {
+    if (e.target.files.length) {
       setFileUpload(null);
 
-      const errorList = {};
       const file = e.target.files[0];
       const fileExt = file.type.split('/')[1].toLowerCase();
       const { size } = file;
 
       if (!regex.regexPhoto.test(fileExt))
-        errorList.fileUpload = 'Image files must be in jpg, jpeg, or png.';
+        setErrors((err) => ({
+          ...err,
+          fileUpload: 'Image files must be in jpg, jpeg, or png',
+        }));
       else if (size > 1024000)
-        errorList.fileUpload = 'Max upload size of 1MB only.';
+        setErrors((err) => ({
+          ...err,
+          fileUpload: 'Max upload size of 1MB only.',
+        }));
+      else setErrors((err) => ({ ...err, fileUpload: '' }));
 
       if (!errors.fileUpload.length) {
         const reader = new FileReader();
@@ -266,10 +272,10 @@ const ContactForm = ({ onSubmit }) => {
           </span>
         </label>
 
-        {fileUpload && (
+        {values.fileUpload && (
           <img
             className="form__preview-source"
-            src={fileUpload}
+            src={values.fileUpload}
             alt="Selected Preview"
           />
         )}
