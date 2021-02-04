@@ -129,7 +129,8 @@ const ContactForm = ({ onSubmit }) => {
 
   const handleFileChange = (e) => {
     if (e.target.files.length) {
-      setFileUpload(null);
+      // setFileUpload(null);
+      setValues((val) => ({ ...val, fileUpload: null }));
 
       const file = e.target.files[0];
       const fileExt = file.type.split('/')[1].toLowerCase();
@@ -150,7 +151,9 @@ const ContactForm = ({ onSubmit }) => {
       if (!errors.fileUpload.length) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onloadend = () => setFileUpload(reader.result);
+        reader.onloadend = () =>
+          setValues((val) => ({ ...val, fileUpload: reader.result }));
+        // reader.onloadend = () => setFileUpload(reader.result);
       }
     }
   };
