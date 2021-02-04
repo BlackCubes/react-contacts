@@ -6,7 +6,8 @@ import ContactForm from './ContactForm';
 function App() {
   const [contacts, setContacts] = useState([]);
 
-  const onSubmit = (newContacts) => setContacts([newContacts]);
+  const onSubmit = (newContacts) =>
+    setContacts((oldContacts) => [...oldContacts, newContacts]);
 
   console.log('contacts', contacts);
 
