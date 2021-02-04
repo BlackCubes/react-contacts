@@ -12,7 +12,7 @@ const ContactList = ({ contacts }) => (
         firstName={prop.firstName}
         lastName={prop.lastName}
         phoneNumber={prop.phoneNumber}
-        profileImg={prop.profileImg}
+        profileImg={prop.fileUpload}
       />
     ))}
   </div>
