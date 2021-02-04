@@ -4,12 +4,6 @@ import PropTypes from 'prop-types';
 import * as regex from '../utils/regex';
 
 const ContactForm = ({ onSubmit }) => {
-  // const [firstName, setFirstName] = useState('');
-  // const [lastName, setLastName] = useState('');
-  // const [phoneNumber, setPhoneNumber] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [address, setAddress] = useState('');
-  // const [fileUpload, setFileUpload] = useState(null);
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
 
