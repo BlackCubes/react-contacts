@@ -150,7 +150,7 @@ const ContactForm = ({ onSubmit }) => {
 
       console.log('fileUpload errors: ', errors);
 
-      if (!errors.fileUpload.length) {
+      if (!errors.fileUpload) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () =>
