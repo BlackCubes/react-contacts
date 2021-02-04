@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 import ContactForm from './ContactForm';
+import ContactList from './ContactList';
 
 function App() {
   const [contacts, setContacts] = useState([]);
@@ -11,7 +12,16 @@ function App() {
 
   console.log('contacts', contacts);
 
-  return <ContactForm onSubmit={onSubmit} />;
+  return (
+    <>
+      <div className="contact-form--wrapper">
+        <ContactForm onSubmit={onSubmit} />
+      </div>
+      <div className="contact-list--wrapper">
+        <ContactList contacts={contacts} />
+      </div>
+    </>
+  );
 }
 
 export default App;
