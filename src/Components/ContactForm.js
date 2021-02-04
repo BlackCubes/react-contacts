@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import * as regex from '../utils/regex';
 
 const ContactForm = ({ onSubmit }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
-  const [fileUpload, setFileUpload] = useState(null);
+  // const [firstName, setFirstName] = useState('');
+  // const [lastName, setLastName] = useState('');
+  // const [phoneNumber, setPhoneNumber] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [address, setAddress] = useState('');
+  // const [fileUpload, setFileUpload] = useState(null);
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
 
@@ -23,22 +23,9 @@ const ContactForm = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const inputs = {
-      firstName,
-      lastName,
-      phoneNumber,
-      email,
-      address,
-      fileUpload,
-    };
 
-    if (validateForm(errors)) onSubmit(inputs);
-    setFirstName('');
-    setLastName('');
-    setPhoneNumber('');
-    setEmail('');
-    setAddress('');
-    setFileUpload('');
+    if (validateForm(errors)) onSubmit(values);
+    setValues({});
   };
 
   const handleChange = (e) => {
