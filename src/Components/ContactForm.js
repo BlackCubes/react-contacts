@@ -129,8 +129,8 @@ const ContactForm = ({ onSubmit }) => {
 
   const handleFileChange = (e) => {
     if (e.target.files.length) {
-      // setFileUpload(null);
-      setValues((val) => ({ ...val, fileUpload: null }));
+      const { name } = e.target;
+      setValues((val) => ({ ...val, [name]: null }));
 
       const file = e.target.files[0];
       const fileExt = file.type.split('/')[1].toLowerCase();
@@ -139,21 +139,20 @@ const ContactForm = ({ onSubmit }) => {
       if (!regex.regexPhoto.test(fileExt))
         setErrors((err) => ({
           ...err,
-          fileUpload: 'Image files must be in jpg, jpeg, or png',
+          [name]: 'Image files must be in jpg, jpeg, or png',
         }));
       else if (size > 1024000)
         setErrors((err) => ({
           ...err,
-          fileUpload: 'Max upload size of 1MB only.',
+          [name]: 'Max upload size of 1MB only.',
         }));
-      else setErrors((err) => ({ ...err, fileUpload: '' }));
+      else setErrors((err) => ({ ...err, [name]: '' }));
 
       if (!errors.fileUpload) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () =>
-          setValues((val) => ({ ...val, fileUpload: reader.result }));
-        // reader.onloadend = () => setFileUpload(reader.result);
+          setValues((val) => ({ ...val, [name]: reader.result }));
       }
     }
   };
