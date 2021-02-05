@@ -11,6 +11,7 @@ const LoginForm = () => {
 
     if (!loggedIn) login(values.username, values.password);
     else logout();
+    setValues({});
   };
 
   const handleChange = (e) => {
