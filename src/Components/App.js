@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 
+import ContactProvider from '../providers/ContactProvider';
+
 function App() {
-  const [contacts, setContacts] = useState([]);
+  // const [contacts, setContacts] = useState([]);
 
-  const onSubmit = (newContacts) =>
-    setContacts((oldContacts) => [...oldContacts, newContacts]);
+  // const onSubmit = (newContacts) =>
+  //   setContacts((oldContacts) => [...oldContacts, newContacts]);
 
-  console.log('contacts', contacts);
+  // console.log('contacts', contacts);
 
   return (
     <>
-      <div className="contact-form--wrapper">
-        <ContactForm onSubmit={onSubmit} />
-      </div>
-      <div className="contact-list--wrapper">
-        <ContactList contacts={contacts} />
-      </div>
+      <ContactProvider>
+        <div className="contact-form--wrapper">
+          <ContactForm />
+        </div>
+        <div className="contact-list--wrapper">
+          <ContactList />
+        </div>
+      </ContactProvider>
     </>
   );
 }
