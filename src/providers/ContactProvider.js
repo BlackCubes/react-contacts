@@ -9,8 +9,11 @@ const ContactProvider = ({ children }) => {
   const addContacts = (newContacts) =>
     setContacts((oldContacts) => [...oldContacts, newContacts]);
 
+  const deleteContact = (deleteIndex) =>
+    setContacts(contacts.filter((val, ind) => ind !== deleteIndex));
+
   return (
-    <ContactContext.Provider value={{ contacts, addContacts }}>
+    <ContactContext.Provider value={{ contacts, addContacts, deleteContact }}>
       {children}
     </ContactContext.Provider>
   );
