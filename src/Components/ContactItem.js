@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import useContactContext from '../hooks/index';
+import { useContactContext } from '../hooks/index';
 
 const ContactItem = ({
   firstName,
