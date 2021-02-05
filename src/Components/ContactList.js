@@ -17,7 +17,7 @@ const ContactList = () => {
           lastName={prop.lastName}
           phoneNumber={prop.phoneNumber}
           profileImg={prop.fileUpload}
-          deleteContact={deleteContact(key)}
+          deleteContact={() => deleteContact(key)}
         />
       ))}
     </div>
