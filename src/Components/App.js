@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
 
-import ContactForm from './ContactForm';
-import ContactList from './ContactList';
+// import ContactForm from './ContactForm';
+// import ContactList from './ContactList';
+import LoginForm from './LoginForm';
 
 import AuthProvider from '../providers/AuthProvider';
-import ContactProvider from '../providers/ContactProvider';
+// import ContactProvider from '../providers/ContactProvider';
 
 function App() {
   // const [contacts, setContacts] = useState([]);
@@ -18,14 +19,15 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <ContactProvider>
+        <LoginForm />
+        {/* <ContactProvider>
           <div className="contact-form--wrapper">
             <ContactForm />
           </div>
           <div className="contact-list--wrapper">
             <ContactList />
           </div>
-        </ContactProvider>
+        </ContactProvider> */}
       </AuthProvider>
     </>
   );
