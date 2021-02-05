@@ -21,7 +21,7 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      {logged && (
+      {loggedIn && (
         <>
           <label htmlFor="username">
             <input
