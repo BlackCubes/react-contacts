@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import useContactContext from '../hooks';
+import { useContactContext } from '../hooks/index';
 
 import * as regex from '../utils/regex';
 

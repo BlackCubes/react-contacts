@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import ContactItem from './ContactItem';
 
-import useContactContext from '../hooks';
+import { useContactContext } from '../hooks/index';
 
 const ContactList = () => {
   const { contacts } = useContactContext();
