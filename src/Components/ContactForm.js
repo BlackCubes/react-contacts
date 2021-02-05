@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+
+import useContactContext from '../hooks';
 
 import * as regex from '../utils/regex';
 
-const ContactForm = ({ onSubmit }) => {
+const ContactForm = () => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
+  const { addContacts } = useContactContext();
 
   const validateForm = (errorList) => {
     let valid = true;
@@ -17,8 +19,7 @@ const ContactForm = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (validateForm(errors)) onSubmit(values);
+    if (validateForm(errors)) addContacts(values);
     setValues({});
   };
 
@@ -268,10 +269,6 @@ const ContactForm = ({ onSubmit }) => {
       </div>
     </form>
   );
-};
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default ContactForm;
