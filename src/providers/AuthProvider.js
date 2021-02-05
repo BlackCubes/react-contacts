@@ -21,6 +21,8 @@ const AuthProvider = ({ children }) => {
     else if (!regex.regexUsername.test(username)) valid = false;
     else valid = true;
 
+    console.log(valid, username, password);
+
     if (valid) setLoggedIn(username);
   };
 
