@@ -6,7 +6,7 @@ import ContactItem from './ContactItem';
 import { useContactContext } from '../hooks/index';
 
 const ContactList = () => {
-  const { contacts } = useContactContext();
+  const { contacts, deleteContact } = useContactContext();
 
   return (
     <div className="contact-list">
@@ -17,7 +17,7 @@ const ContactList = () => {
           lastName={prop.lastName}
           phoneNumber={prop.phoneNumber}
           profileImg={prop.fileUpload}
-          index={key}
+          deleteContact={deleteContact(key)}
         />
       ))}
     </div>
