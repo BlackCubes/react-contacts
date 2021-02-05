@@ -1,7 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ContactItem = ({ firstName, lastName, phoneNumber, profileImg }) => (
+import useContactContext from '../hooks/index';
+
+const ContactItem = ({
+  firstName,
+  lastName,
+  phoneNumber,
+  profileImg,
+  index,
+}) => {
+  const { deleteContact } = useContactContext();
+
   <div className="contact-item">
     <div className="contact-item__profile">
       <img
@@ -22,16 +32,19 @@ const ContactItem = ({ firstName, lastName, phoneNumber, profileImg }) => (
     </div>
 
     <div className="contact-item__close">
-      <span>&times;</span>
+      <button type="button" onClick={deleteContact(index)}>
+        &times;
+      </button>
     </div>
-  </div>
-);
+  </div>;
+};
 
 ContactItem.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   phoneNumber: PropTypes.string.isRequired,
   profileImg: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default ContactItem;
