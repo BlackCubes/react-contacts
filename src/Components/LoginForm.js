@@ -9,7 +9,7 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (loggedIn) login(values.username, values.password);
+    if (!loggedIn) login(values.username, values.password);
     else logout();
   };
 
