@@ -10,13 +10,14 @@ const ContactList = () => {
 
   return (
     <div className="contact-list">
-      {contacts.map((prop) => (
+      {contacts.map((prop, key) => (
         <ContactItem
           key={uuidv4()}
           firstName={prop.firstName}
           lastName={prop.lastName}
           phoneNumber={prop.phoneNumber}
           profileImg={prop.fileUpload}
+          index={key}
         />
       ))}
     </div>
