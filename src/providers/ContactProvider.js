@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import ContactContext from '../context/ContactContext';
@@ -23,4 +24,4 @@ ContactProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default ContactProvider;
+export default withRouter(ContactProvider);
