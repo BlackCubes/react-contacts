@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { useContactContext } from '../hooks/index';
 
@@ -8,8 +7,7 @@ import * as regex from '../utils/regex';
 const ContactForm = () => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
-  const { contacts, addContacts } = useContactContext();
-  const history = useHistory();
+  const { addContacts } = useContactContext();
 
   const validateForm = (errorList) => {
     let valid = true;
@@ -21,11 +19,7 @@ const ContactForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm(errors)) {
-      addContacts(values);
-      history.push('/');
-      console.log(contacts);
-    }
+    if (validateForm(errors)) addContacts(values);
     setValues({});
   };
 
