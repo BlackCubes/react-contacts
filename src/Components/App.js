@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 
 import ContactForm from './ContactForm';
@@ -7,22 +7,25 @@ import ContactList from './ContactList';
 // import LoginForm from './LoginForm';
 
 import AuthProvider from '../providers/AuthProvider';
+import ContactProvider from '../providers/ContactProvider';
 
 function App() {
   return (
-    <>
-      <AuthProvider>
-        {/* <LoginForm /> */}
-        <Route exact path="/" component={ContactList} />
-        <Route path="/contacts/add" component={ContactForm} />
-        {/* <div className="contact-form--wrapper">
-          <ContactForm />
-        </div>
-        <div className="contact-list--wrapper">
-          <ContactList />
-        </div> */}
-      </AuthProvider>
-    </>
+    <Router>
+      <ContactProvider>
+        <AuthProvider>
+          {/* <LoginForm /> */}
+          <Route exact path="/" component={ContactList} />
+          <Route path="/contacts/add" component={ContactForm} />
+          {/* <div className="contact-form--wrapper">
+            <ContactForm />
+          </div>
+          <div className="contact-list--wrapper">
+            <ContactList />
+          </div> */}
+        </AuthProvider>
+      </ContactProvider>
+    </Router>
   );
 }
 

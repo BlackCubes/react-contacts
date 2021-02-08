@@ -1,19 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './Components/App';
 import reportWebVitals from './reportWebVitals';
 
-import ContactProvider from './providers/ContactProvider';
-
 ReactDOM.render(
   <React.StrictMode>
-    <ContactProvider>
-      <Router>
-        <App />
-      </Router>
-    </ContactProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
