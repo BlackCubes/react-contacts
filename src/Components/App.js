@@ -27,8 +27,8 @@ function App() {
         <AuthProvider>
           {/* <LoginForm /> */}
           <Route exact path="/" component={ContactList} />
-          <Route path="/contacts/:index" component={ContactDetails} />
-          <Route path="/contacts/add" component={ContactForm} />
+          <Route exact path="/contacts/:index" component={ContactDetails} />
+          <Route exact path="/contacts/add" component={ContactForm} />
           {/* <div className="contact-form--wrapper">
             <ContactForm />
           </div>
