@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 
+import ContactDetails from './ContactDetails';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 // import LoginForm from './LoginForm';
@@ -26,6 +27,7 @@ function App() {
         <AuthProvider>
           {/* <LoginForm /> */}
           <Route exact path="/" component={ContactList} />
+          <Route path="/contacts/:index" component={ContactDetails} />
           <Route path="/contacts/add" component={ContactForm} />
           {/* <div className="contact-form--wrapper">
             <ContactForm />
