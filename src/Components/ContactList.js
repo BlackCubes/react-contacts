@@ -8,6 +8,8 @@ import { useContactContext } from '../hooks/index';
 const ContactList = () => {
   const { contacts, deleteContact } = useContactContext();
 
+  console.log(contacts);
+
   return (
     <div className="contact-list">
       {contacts.map((prop, key) => (
