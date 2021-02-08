@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 
 import ContactForm from './ContactForm';
@@ -12,6 +12,16 @@ import ContactProvider from '../providers/ContactProvider';
 function App() {
   return (
     <Router>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Contacts</Link>
+          </li>
+          <li>
+            <Link to="/contacts/add">Create Contact</Link>
+          </li>
+        </ul>
+      </nav>
       <ContactProvider>
         <AuthProvider>
           {/* <LoginForm /> */}
