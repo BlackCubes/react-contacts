@@ -5,11 +5,15 @@ import './index.css';
 import App from './Components/App';
 import reportWebVitals from './reportWebVitals';
 
+import ContactProvider from './providers/ContactProvider';
+
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <ContactProvider>
+      <Router>
+        <App />
+      </Router>
+    </ContactProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
