@@ -7,6 +7,7 @@ const ContactItem = ({
   phoneNumber,
   profileImg,
   deleteContact,
+  getContactDetails,
 }) => (
   <div className="contact-item">
     <div className="contact-item__profile">
@@ -32,6 +33,12 @@ const ContactItem = ({
         &times;
       </button>
     </div>
+
+    <div className="contact-item__more-info">
+      <button type="button" onClick={getContactDetails}>
+        &check;
+      </button>
+    </div>
   </div>
 );
 
@@ -41,6 +48,7 @@ ContactItem.propTypes = {
   phoneNumber: PropTypes.string.isRequired,
   profileImg: PropTypes.string.isRequired,
   deleteContact: PropTypes.func.isRequired,
+  getContactDetails: PropTypes.func.isRequired,
 };
 
 export default ContactItem;
