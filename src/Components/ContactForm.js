@@ -7,7 +7,7 @@ import * as regex from '../utils/regex';
 const ContactForm = () => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
-  const { addContacts } = useContactContext();
+  const { contacts, addContacts } = useContactContext();
 
   const validateForm = (errorList) => {
     let valid = true;
@@ -19,7 +19,10 @@ const ContactForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm(errors)) addContacts(values);
+    if (validateForm(errors)) {
+      addContacts(values);
+      console.log(contacts);
+    }
     setValues({});
   };
 
