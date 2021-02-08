@@ -24,7 +24,13 @@ const ContactList = () => {
             deleteContact={() => deleteContact(key)}
           />
         );
-        return <Link to={`/contacts/${key}`} component={contactComponent} />;
+        return (
+          <Link
+            key={uuidv4()}
+            to={`/contacts/${key}`}
+            component={contactComponent}
+          />
+        );
       })}
     </div>
   );
