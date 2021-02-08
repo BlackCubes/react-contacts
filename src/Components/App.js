@@ -14,16 +14,30 @@ function App() {
     <>
       <AuthProvider>
         {/* <LoginForm /> */}
-        <ContactProvider>
-          <Route exact path="/" component={ContactList} />
-          <Route exact path="/contacts/add" component={ContactForm} />
-          {/* <div className="contact-form--wrapper">
-            <ContactForm />
-          </div>
-          <div className="contact-list--wrapper">
-            <ContactList />
-          </div> */}
-        </ContactProvider>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <ContactProvider>
+              <ContactList />
+            </ContactProvider>
+          )}
+        />
+        <Route
+          exact
+          path="/contacts/add"
+          render={() => (
+            <ContactProvider>
+              <ContactForm />
+            </ContactProvider>
+          )}
+        />
+        {/* <div className="contact-form--wrapper">
+          <ContactForm />
+        </div>
+        <div className="contact-list--wrapper">
+          <ContactList />
+        </div> */}
       </AuthProvider>
     </>
   );
