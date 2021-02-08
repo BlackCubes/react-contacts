@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useContactContext } from '../hooks/index';
 
@@ -8,6 +9,7 @@ const ContactForm = () => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const { contacts, addContacts } = useContactContext();
+  const history = useHistory();
 
   const validateForm = (errorList) => {
     let valid = true;
@@ -21,6 +23,7 @@ const ContactForm = () => {
     e.preventDefault();
     if (validateForm(errors)) {
       addContacts(values);
+      history.push('/');
       console.log(contacts);
     }
     setValues({});
