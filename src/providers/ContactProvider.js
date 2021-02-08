@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
+import { useHistory, withRouter, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import ContactContext from '../context/ContactContext';
@@ -16,8 +16,12 @@ const ContactProvider = ({ children }) => {
   const deleteContact = (deleteIndex) =>
     setContacts(contacts.filter((val, ind) => ind !== deleteIndex));
 
+  const getContactDetails = (index) => <Redirect to={`/contacts/${index}`} />;
+
   return (
-    <ContactContext.Provider value={{ contacts, addContacts, deleteContact }}>
+    <ContactContext.Provider
+      value={{ contacts, addContacts, deleteContact, getContactDetails }}
+    >
       {children}
     </ContactContext.Provider>
   );
