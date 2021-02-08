@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import ContactItem from './ContactItem';
@@ -13,25 +12,16 @@ const ContactList = () => {
 
   return (
     <div className="contact-list">
-      {contacts.map((prop, key) => {
-        const contactComponent = (
-          <ContactItem
-            key={uuidv4()}
-            firstName={prop.firstName}
-            lastName={prop.lastName}
-            phoneNumber={prop.phoneNumber}
-            profileImg={prop.fileUpload}
-            deleteContact={() => deleteContact(key)}
-          />
-        );
-        return (
-          <Link
-            key={uuidv4()}
-            to={`/contacts/${key}`}
-            component={contactComponent}
-          />
-        );
-      })}
+      {contacts.map((prop, key) => (
+        <ContactItem
+          key={uuidv4()}
+          firstName={prop.firstName}
+          lastName={prop.lastName}
+          phoneNumber={prop.phoneNumber}
+          profileImg={prop.fileUpload}
+          deleteContact={() => deleteContact(key)}
+        />
+      ))}
     </div>
   );
 };
