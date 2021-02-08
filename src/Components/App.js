@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import './App.css';
 
 import ContactForm from './ContactForm';
@@ -15,10 +15,8 @@ function App() {
       <AuthProvider>
         {/* <LoginForm /> */}
         <ContactProvider>
-          <Switch>
-            <Route exact path="/" component={ContactList} />
-            <Route exact path="/contacts/add" component={ContactForm} />
-          </Switch>
+          <Route exact path="/" component={ContactList} />
+          <Route exact path="/contacts/add" component={ContactForm} />
           {/* <div className="contact-form--wrapper">
             <ContactForm />
           </div>
