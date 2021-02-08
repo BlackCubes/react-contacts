@@ -9,13 +9,6 @@ import AuthProvider from '../providers/AuthProvider';
 import ContactProvider from '../providers/ContactProvider';
 
 function App() {
-  // const [contacts, setContacts] = useState([]);
-
-  // const onSubmit = (newContacts) =>
-  //   setContacts((oldContacts) => [...oldContacts, newContacts]);
-
-  // console.log('contacts', contacts);
-
   return (
     <>
       <AuthProvider>
