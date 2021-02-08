@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import './App.css';
 
 import ContactDetails from './ContactDetails';
@@ -26,9 +26,11 @@ function App() {
       <ContactProvider>
         <AuthProvider>
           {/* <LoginForm /> */}
-          <Route exact path="/" component={ContactList} />
-          <Route exact path="/contacts/:index" component={ContactDetails} />
-          <Route exact path="/contacts/add" component={ContactForm} />
+          <Switch>
+            <Route exact path="/" component={ContactList} />
+            <Route exact path="/contacts/:index" component={ContactDetails} />
+            <Route exact path="/contacts/add" component={ContactForm} />
+          </Switch>
           {/* <div className="contact-form--wrapper">
             <ContactForm />
           </div>
