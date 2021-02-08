@@ -28,8 +28,8 @@ function App() {
           {/* <LoginForm /> */}
           <Switch>
             <Route exact path="/" component={ContactList} />
-            <Route exact path="/contacts/:index" component={ContactDetails} />
             <Route exact path="/contacts/add" component={ContactForm} />
+            <Route exact path="/contacts/:index" component={ContactDetails} />
           </Switch>
           {/* <div className="contact-form--wrapper">
             <ContactForm />
