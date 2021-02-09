@@ -5,7 +5,7 @@ import './App.css';
 import ContactDetails from './ContactDetails';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
-// import LoginForm from './LoginForm';
+import LoginForm from './LoginForm';
 
 import AuthProvider from '../providers/AuthProvider';
 import ContactProvider from '../providers/ContactProvider';
@@ -28,6 +28,7 @@ function App() {
           {/* <LoginForm /> */}
           <Switch>
             <Route exact path="/" component={ContactList} />
+            <Route exact path="/login" component={LoginForm} />
             <Route exact path="/contacts/add" component={ContactForm} />
             <Route exact path="/contacts/:index" component={ContactDetails} />
           </Switch>
