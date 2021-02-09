@@ -25,19 +25,12 @@ function App() {
       </nav>
       <ContactProvider>
         <AuthProvider>
-          {/* <LoginForm /> */}
           <Switch>
             <Route exact path="/" component={ContactList} />
             <Route exact path="/login" component={LoginForm} />
             <Route exact path="/contacts/add" component={ContactForm} />
             <Route exact path="/contacts/:index" component={ContactDetails} />
           </Switch>
-          {/* <div className="contact-form--wrapper">
-            <ContactForm />
-          </div>
-          <div className="contact-list--wrapper">
-            <ContactList />
-          </div> */}
         </AuthProvider>
       </ContactProvider>
     </Router>
