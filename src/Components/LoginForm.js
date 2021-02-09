@@ -53,33 +53,6 @@ const LoginForm = () => {
           </label>
         </>
       )}
-      {/* <label htmlFor="username">
-        <input
-          type="text"
-          name="username"
-          id="username"
-          value={values.username || ''}
-          placeholder="Username"
-          onChange={handleChange}
-          noValidate
-        />
-
-        <span>Enter username.</span>
-      </label>
-
-      <label htmlFor="password">
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={values.password || ''}
-          placeholder="Password"
-          onChange={handleChange}
-          noValidate
-        />
-
-        <span>Enter password.</span>
-      </label> */}
 
       <button type="submit">{!loggedIn ? 'Login' : 'Logout'}</button>
     </form>
