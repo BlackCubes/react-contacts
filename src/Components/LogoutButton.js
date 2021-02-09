@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { useAuthContext } from '../hooks/index';
 
 const LogoutButton = () => {
-  const { logout } = useAuthContext();
+  const { loggedIn, logout } = useAuthContext();
 
-  return (
+  return !loggedIn ? (
+    <></>
+  ) : (
     <button type="submit" onClick={logout}>
       Logout
     </button>
