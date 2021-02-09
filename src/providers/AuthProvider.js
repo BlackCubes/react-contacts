@@ -25,10 +25,7 @@ const AuthProvider = ({ children }) => {
 
     console.log(valid, username, password);
 
-    if (valid) {
-      setLoggedIn(username);
-      history.push('/');
-    }
+    if (valid) setLoggedIn(username);
   };
 
   const logout = () => {
