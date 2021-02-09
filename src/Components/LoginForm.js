@@ -58,6 +58,16 @@ const LoginForm = () => {
             ...err,
             [name]: 'Required.',
           }));
+        else if (value.length < 8)
+          setErrors((err) => ({
+            ...err,
+            [name]: 'Must be a minimum of 8 characters',
+          }));
+        else if (value.length > 60)
+          setErrors((err) => ({
+            ...err,
+            [name]: 'Must be less than or equal to 60 characters',
+          }));
         else if (!regex.regexPass.test(value))
           setErrors((err) => ({
             ...err,
