@@ -4,13 +4,12 @@ import { useAuthContext } from '../hooks/index';
 
 const LoginForm = () => {
   const [values, setValues] = useState({});
-  const { loggedIn, login, logout } = useAuthContext();
+  const { login } = useAuthContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!loggedIn) login(values.username, values.password);
-    else logout();
+    login(values.username, values.password);
     setValues({});
   };
 
@@ -22,39 +21,35 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      {!loggedIn && (
-        <>
-          <label htmlFor="username">
-            <input
-              type="text"
-              name="username"
-              id="username"
-              value={values.username || ''}
-              placeholder="Username"
-              onChange={handleChange}
-              noValidate
-            />
+      <label htmlFor="username">
+        <input
+          type="text"
+          name="username"
+          id="username"
+          value={values.username || ''}
+          placeholder="Username"
+          onChange={handleChange}
+          noValidate
+        />
 
-            <span>Enter username.</span>
-          </label>
+        <span>Enter username.</span>
+      </label>
 
-          <label htmlFor="password">
-            <input
-              type="password"
-              name="password"
-              id="password"
-              value={values.password || ''}
-              placeholder="Password"
-              onChange={handleChange}
-              noValidate
-            />
+      <label htmlFor="password">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          value={values.password || ''}
+          placeholder="Password"
+          onChange={handleChange}
+          noValidate
+        />
 
-            <span>Enter password.</span>
-          </label>
-        </>
-      )}
+        <span>Enter password.</span>
+      </label>
 
-      <button type="submit">{!loggedIn ? 'Login' : 'Logout'}</button>
+      <button type="submit">Login</button>
     </form>
   );
 };
