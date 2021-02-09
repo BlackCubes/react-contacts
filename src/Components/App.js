@@ -24,8 +24,8 @@ function App() {
           </li>
         </ul>
       </nav>
-      <ContactProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <ContactProvider>
           <LogoutButton />
           <Switch>
             <Route exact path="/" component={ContactList} />
@@ -33,8 +33,8 @@ function App() {
             <Route exact path="/contacts/add" component={ContactForm} />
             <Route exact path="/contacts/:index" component={ContactDetails} />
           </Switch>
-        </AuthProvider>
-      </ContactProvider>
+        </ContactProvider>
+      </AuthProvider>
     </Router>
   );
 }
