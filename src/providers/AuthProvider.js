@@ -12,17 +12,6 @@ const AuthProvider = ({ children }) => {
   const history = useHistory();
 
   const login = async (usernameInput, passwordInput) => {
-    // let valid = true;
-
-    // if (!password) valid = false;
-    // else if (!regex.regexPass.test(password)) valid = false;
-    // else valid = true;
-
-    // if (!username) valid = false;
-    // else if (username.length < 3) valid = false;
-    // else if (username.length > 9) valid = false;
-    // else if (!regex.regexUsername.test(username)) valid = false;
-    // else valid = true;
     const { username, password } = await loginAPI();
 
     console.log(username, password);
