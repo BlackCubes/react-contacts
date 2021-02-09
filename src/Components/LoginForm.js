@@ -43,7 +43,7 @@ const LoginForm = () => {
             ...err,
             [name]: 'Must be less than or equal to 9 characters.',
           }));
-        else if (!regex.regexUsername(value))
+        else if (!regex.regexUsername.test(value))
           setErrors((err) => ({
             ...err,
             [name]:
