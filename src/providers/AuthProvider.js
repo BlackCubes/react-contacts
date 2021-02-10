@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import AuthContext from '../context/AuthContext';
@@ -9,7 +9,7 @@ import loginAPI from '../utils/login';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(null);
-  // const history = useHistory();
+  const history = useHistory();
 
   const login = async (usernameInput, passwordInput) => {
     const { username, password } = await loginAPI();
@@ -22,14 +22,11 @@ const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setLoggedIn(null);
-    return <Redirect to="/login" />;
-    // history.push('/login');
+    history.push('/login');
   };
 
-  if (!loggedIn) return <Redirect to="/login" />;
-  if (loggedIn) return <Redirect to="/" />;
-  // if (!loggedIn) history.push('/login');
-  // else if (loggedIn) history.push('/');
+  if (!loggedIn) history.push('/login');
+  else if (loggedIn) history.push('/');
 
   return (
     <AuthContext.Provider value={{ loggedIn, login, logout }}>
