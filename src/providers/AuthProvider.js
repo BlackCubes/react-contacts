@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
     // history.push('/login');
   };
 
-  if (!loggedIn) return <Redirect to="login" />;
+  if (!loggedIn) return <Redirect to="/login" />;
   if (loggedIn) return <Redirect to="/" />;
   // if (!loggedIn) history.push('/login');
   // else if (loggedIn) history.push('/');
